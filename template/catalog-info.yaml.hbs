@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: '{{ values.component_id }}'
+  name: '{{ cookiecutter.component_id }}'
   description: A simple Hello World Python application.
   annotations:
-    github.com/project-slug: '{{ parseRepoUrl values.repoUrl "owner" }}/{{ parseRepoUrl values.repoUrl "repo" }}'
+    github.com/project-slug: '{{ parseRepoUrl cookiecutter.repoUrl "owner" }}/{{ parseRepoUrl cookiecutter.repoUrl "repo" }}'
 spec:
   type: service
   lifecycle: experimental
-  owner: '{{ values.owner }}'
+  owner: '{{ cookiecutter.owner }}'

@@ -38,6 +38,8 @@ spec:
             allowedOwners: ['divinew-dojo']
 
   steps:
+    # Step 1: Fetch the template and pass values for Cookiecutter to process.
+    # This now includes repo_owner and repo_name for the annotations.
     - id: fetch_template
       name: Fetch Skeleton
       action: fetch:template
@@ -46,10 +48,11 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
-          # repoUrl is not typically needed inside the template files, but passing it is fine.
-          repoUrl: ${{ parameters.repoUrl }}
+          repo_owner: ${{ parameters.repoUrl | parseRepoUrl('owner') }}
+          repo_name: ${{ parameters.repoUrl | parseRepoUrl('repo') }}
 
-    # Step 2: This step remains the same
+    # Step 2: Publish the fully rendered and correctly named files to GitHub.
+    # The fs:rename step is no longer needed.
     - id: publish
       name: Publish to GitHub
       action: publish:github
@@ -57,9 +60,8 @@ spec:
         repoUrl: ${{ parameters.repoUrl }}
         description: 'Initial commit for ${{ parameters.component_id }}'
         defaultBranch: main
-        # sourcePath is not needed if the content is at the root of the workspace, which it is.
     
-    # Step 3: This step will now work correctly
+    # Step 3: Register the component in the catalog. This will now succeed.
     - id: register 
       name: Register Component
       action: catalog:register
