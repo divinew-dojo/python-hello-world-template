@@ -52,14 +52,6 @@ spec:
           repoUrl: ${{ parameters.repoUrl }}
           repo_owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
           repo_name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
-      
-    - id: rename_catalog_file
-      name: Rename Catalog Info File
-      action: fs:rename
-      input:
-        files:
-          - from: ./catalog-info.yaml.hbs
-            to: ./catalog-info.yaml
 
     - id: publish
       name: Publish to GitHub
