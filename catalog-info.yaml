@@ -1,8 +1,0 @@
-apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: python-template-location
-  description: A location containing the template for a Python Hello World application.
-spec:
-  targets:
-    - ./template.yaml
