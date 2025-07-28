@@ -1,0 +1,64 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: python-hello-world-template
+  title: Python Hello World Application
+  description: Creates a simple Python "Hello World" application in your GitHub account.
+spec:
+  owner: user:guest
+  type: service
+  parameters:
+    - title: Application Details
+      required:
+        - component_id
+        - owner
+      properties: 
+        component_id:
+          title: Name
+          type: string
+          description: Unique name of the application
+        owner:
+          title: owner
+          type: string
+          description: Owner of the application
+          ui:field: OwnerPicker
+          ui:options: 
+            allowedKinds: ['user']
+
+    - title: Repository Location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts: ['github.com']
+            allowedOwners: ['divinew-dojo']
+
+  steps:
+    - id: fetch_skeleton
+      name: Fetch Skeleton
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          component_id: ${{ parameters.component_id }}
+          ownder: ${{ parameters.owner }}
+          repoUrl: ${{ parameters.repoUrl }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        description: 'Initial commit for ${{ parameters.component_id }}'
+        defaultBranch: main
+    
+    - id: register 
+      name: Register Component
+      action: catalog:register
+      input: 
+      repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+      catalogInfoPath: '/catalog-info.yaml'
