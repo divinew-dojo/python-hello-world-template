@@ -43,14 +43,8 @@ spec:
       action: fetch:plain
       input:
         url: ./template
-        targetPath: ./content
-    
-    - id: template
-      name: Run Templating
-      action: template:run
-      input:
-        path: './content'
-        vlaues:
+        templateFileExtension: '.hbs'
+        values:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
           repoUrl: ${{ parameters.repoUrl }}
@@ -62,7 +56,7 @@ spec:
         repoUrl: ${{ parameters.repoUrl }}
         description: 'Initial commit for ${{ parameters.component_id }}'
         defaultBranch: main
-        sourcePath: './content'
+        sourcePath: './'
     
     - id: register 
       name: Register Component
