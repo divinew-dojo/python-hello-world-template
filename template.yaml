@@ -43,9 +43,7 @@ spec:
       action: fetch:template
       input:
         url: ./template
-        # Add this line to ensure standard templating is used
         cookiecutterCompat: false
-        # Pass the raw values. The template file will handle the parsing.
         values:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
