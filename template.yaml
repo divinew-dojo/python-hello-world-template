@@ -5,7 +5,7 @@ metadata:
   title: Python Hello World Application
   description: Creates a simple Python "Hello World" application in your GitHub account.
 spec:
-  owner: user:guest
+  owner: builds-processes-squad
   type: service
   parameters:
     - title: Application Details
