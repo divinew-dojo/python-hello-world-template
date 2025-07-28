@@ -43,6 +43,7 @@ spec:
       action: fetch:template
       input:
         url: ./template
+        templateFileExtension: '.hbs'
         values:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
@@ -55,6 +56,7 @@ spec:
         repoUrl: ${{ parameters.repoUrl }}
         description: 'Initial commit for ${{ parameters.component_id }}'
         defaultBranch: main
+        sourcePath: './'
     
     - id: register 
       name: Register Component
