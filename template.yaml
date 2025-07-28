@@ -40,10 +40,9 @@ spec:
   steps:
     - id: fetch_skeleton
       name: Fetch Skeleton
-      action: fetch:plain
+      action: fetch:template
       input:
         url: ./template
-        templateFileExtension: '.hbs'
         values:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
