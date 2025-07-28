@@ -40,11 +40,17 @@ spec:
   steps:
     - id: fetch_skeleton
       name: Fetch Skeleton
-      action: fetch:template
+      action: fetch:plain
       input:
         url: ./template
-        templateFileExtension: '.hbs'
-        values:
+        targetPath: ./content
+    
+    - id: template
+      name: Run Templating
+      action: template:run
+      input:
+        path: './content'
+        vlaues:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
           repoUrl: ${{ parameters.repoUrl }}
@@ -56,7 +62,7 @@ spec:
         repoUrl: ${{ parameters.repoUrl }}
         description: 'Initial commit for ${{ parameters.component_id }}'
         defaultBranch: main
-        sourcePath: './'
+        sourcePath: './content'
     
     - id: register 
       name: Register Component
