@@ -45,7 +45,7 @@ spec:
         url: ./template
         values:
           component_id: ${{ parameters.component_id }}
-          ownder: ${{ parameters.owner }}
+          owner: ${{ parameters.owner }}
           repoUrl: ${{ parameters.repoUrl }}
 
     - id: publish
@@ -60,5 +60,5 @@ spec:
       name: Register Component
       action: catalog:register
       input: 
-      repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-      catalogInfoPath: '/catalog-info.yaml'
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
