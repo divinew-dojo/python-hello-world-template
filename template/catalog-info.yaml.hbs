@@ -2,8 +2,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: 'static-test-component'
+  name: '{{ values.component_id }}'
+  description: A simple Hello World Python application.
+  annotations:
+    github.com/project-slug: '{{ values.repoUrl | parseRepoUrl("owner") }}/{{ values.repoUrl | parseRepoUrl("repo") }}'
 spec:
   type: service
   lifecycle: experimental
-  owner: 'user:default/guest'
+  owner: '{{ values.owner }}'

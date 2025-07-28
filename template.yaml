@@ -50,6 +50,14 @@ spec:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
           repoUrl: ${{ parameters.repoUrl }}
+      
+    - id: rename_catalog_file
+      name: Rename Catalog Info File
+      action: fs:rename
+      input:
+        files:
+          - from: ./catalog-info.yaml.hbs
+            to: ./catalog-info.yaml
 
     - id: publish
       name: Publish to GitHub
