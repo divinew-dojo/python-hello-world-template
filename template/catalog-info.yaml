@@ -1,11 +1,12 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{ values.component_id }}
+  name: '{{ values.component_id }}'
   description: A simple Hello World Python application.
   annotations:
-    github.com/project-slug: ${{ parseRepoUrl values.repoUrl "owner" }}/{{ parseRepoUrl values.repoUrl "repo" }}
+    # This is the corrected line 7
+    github.com/project-slug: '{{ values.repoUrl | parseRepoUrl("owner") }}/{{ values.repoUrl | parseRepoUrl("repo") }}'
 spec:
   type: service
   lifecycle: experimental
-  owner: ${{ values.owner }}
+  owner: '{{ values.owner }}'

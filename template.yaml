@@ -12,7 +12,7 @@ spec:
       required:
         - component_id
         - owner
-      properties: 
+      properties:
         component_id:
           title: Name
           type: string
@@ -22,7 +22,7 @@ spec:
           type: string
           description: Owner of the application
           ui:field: OwnerPicker
-          ui:options: 
+          ui:options:
             allowedKinds: ['user']
 
     - title: Repository Location
@@ -43,13 +43,14 @@ spec:
       action: fetch:template
       input:
         url: ./template
+        # Add this line to ensure standard templating is used
+        cookiecutterCompat: false
+        # Pass the raw values. The template file will handle the parsing.
         values:
           component_id: ${{ parameters.component_id }}
           owner: ${{ parameters.owner }}
-          # repoUrl is not typically needed inside the template files, but passing it is fine.
           repoUrl: ${{ parameters.repoUrl }}
 
-    # Step 2: This step remains the same
     - id: publish
       name: Publish to GitHub
       action: publish:github
@@ -57,12 +58,10 @@ spec:
         repoUrl: ${{ parameters.repoUrl }}
         description: 'Initial commit for ${{ parameters.component_id }}'
         defaultBranch: main
-        # sourcePath is not needed if the content is at the root of the workspace, which it is.
-    
-    # Step 3: This step will now work correctly
-    - id: register 
+
+    - id: register
       name: Register Component
       action: catalog:register
-      input: 
+      input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: '/catalog-info.yaml'
